@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profileapp/app/routes.dart';
+import 'package:profileapp/features/profile/model/dummy_page_model.dart';
 import 'package:profileapp/features/profile/model/profile_model.dart';
 import 'package:profileapp/features/profile/servies/profile_services.dart';
 import 'package:profileapp/helpers/confirmatiom_dialog.dart';
@@ -133,7 +134,7 @@ class _ProfileViewState extends State<ProfileView> {
                   ),
                   Text("Supervisor: ${_profileModel?.supervisorName}"),
                   ElevatedButton(onPressed: (){
-                    Navigator.pushNamed(context, AppRoutes.dummyRoute,arguments: "Hello" );
+                    Navigator.pushNamed(context, AppRoutes.dummyRoute,arguments: DummyPageModel(name: "Hello", address: "Kathamandu", age: 20) );
                   }, child: Text("Navigate"))
                 ],
               ),

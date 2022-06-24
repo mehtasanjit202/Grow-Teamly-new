@@ -30,6 +30,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
+    final size =MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -48,9 +49,10 @@ class _DashboardViewState extends State<DashboardView> {
             child: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.all(20.0),
-                  height: 70,
-                  width: 100,
+                  padding: EdgeInsets.all(10.0),
+                  height: 50,
+                  width: size.width * 0.5,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.blue,borderRadius: BorderRadius.circular(15)
                   ),

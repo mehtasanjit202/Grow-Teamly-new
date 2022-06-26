@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:profileapp/features/daily_updates/views/dailyupdate_view.dart';
 import 'package:profileapp/features/dashboard/model/dashboard_card.dart';
 import 'package:profileapp/features/dashboard/services/dashboard_services.dart';
+import 'package:profileapp/features/dashboard_data/dashboard_card2.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
   DashboardCardModel? dashboardCard;
-  bool _isloading =true;
+  bool _isloading = true;
   @override
   void initState() {
     super.initState();
@@ -22,15 +24,13 @@ class _DashboardViewState extends State<DashboardView> {
     DashboardCardModel? response =
         await DashboardServices().fetchDashboardCardData();
     dashboardCard = response;
-    _isloading =false;
-    setState(() {
-      
-    });
-  } 
+    _isloading = false;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    final size =MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,33 +40,76 @@ class _DashboardViewState extends State<DashboardView> {
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
-      body: _isloading ? Center(
-        child: CircularProgressIndicator(color: Colors.redAccent,) ,
-      ) : Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10.0),
-                  height: 50,
-                  width: size.width * 0.5,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,borderRadius: BorderRadius.circular(15)
+      body: _isloading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Colors.redAccent,
+              ),
+            )
+          : Center(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    height: 10,
                   ),
-                  child: Text(dashboardCard!.mymissingcheckoutcount.toString(),style: TextStyle(
-                    color: Colors.redAccent, fontSize: 20
-                  ),)),
-                SizedBox(width: 50,),
-                Text(dashboardCard!.myleavebalance.toString())
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DashboardCard(
+                          icon: Icon(Icons.home,color: Colors.yellow,),
+                          title: "My leave balance",
+                          count: dashboardCard!.myleavebalance.toString()),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      DashboardCard(icon: Icon(Icons.timeline,color: Colors.red,), title:"My missing checkout", count: dashboardCard!.mymissingcheckoutcount.toString()),
+                      SizedBox(height: 10,),
+                     
+                      
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DashboardCard(
+                          icon: Icon(Icons.home,color: Colors.yellow,),
+                          title: "My leave balance",
+                          count: dashboardCard!.myleavebalance.toString()),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      DashboardCard(icon: Icon(Icons.timeline,color: Colors.red,), title:"My missing checkout", count: dashboardCard!.mymissingcheckoutcount.toString()),
+                      SizedBox(height: 10,),
+                     
+                      
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    
+                    children: [
+                      SizedBox(width: 20,),
+                      DashboardCard(
+                          icon: Icon(Icons.home,color: Colors.yellow,),
+                          title: "My leave balance",
+                          count: dashboardCard!.myleavebalance.toString()),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      
+                     
+                      
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          
-        ],
-      ),
     );
   }
 }

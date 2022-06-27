@@ -33,7 +33,7 @@ class _DashboardViewState extends State<DashboardView> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title:const Text(
           "Dashboardview",
           style: TextStyle(fontSize: 20, color: Colors.red),
         ),
@@ -41,7 +41,7 @@ class _DashboardViewState extends State<DashboardView> {
         centerTitle: true,
       ),
       body: _isloading
-          ? Center(
+          ?const Center(
               child: CircularProgressIndicator(
                 color: Colors.redAccent,
               ),
@@ -50,65 +50,60 @@ class _DashboardViewState extends State<DashboardView> {
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
+                 const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DashboardCard(
-                          icon: Icon(Icons.home,color: Colors.yellow,),
-                          title: "My leave balance",
-                          count: dashboardCard!.myleavebalance.toString()),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      DashboardCard(icon: Icon(Icons.timeline,color: Colors.red,), title:"My missing checkout", count: dashboardCard!.mymissingcheckoutcount.toString()),
-                      SizedBox(height: 10,),
-                     
-                      
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DashboardCard(
-                          icon: Icon(Icons.home,color: Colors.yellow,),
-                          title: "My leave balance",
-                          count: dashboardCard!.myleavebalance.toString()),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      DashboardCard(icon: Icon(Icons.timeline,color: Colors.red,), title:"My missing checkout", count: dashboardCard!.mymissingcheckoutcount.toString()),
-                      SizedBox(height: 10,),
-                     
-                      
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    
-                    children: [
-                      SizedBox(width: 20,),
-                      DashboardCard(
-                          icon: Icon(Icons.home,color: Colors.yellow,),
-                          title: "My leave balance",
-                          count: dashboardCard!.myleavebalance.toString()),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      
-                     
-                      
-                    ],
-                  ),
+                  Wrap(
+                    spacing: 40,
+                    runSpacing: 10,
+                
+                      // mainAxisAlignment: MainAxisAlignment.center,
+
+                      children: [
+                        DashboardCard(
+                            icon:const Icon(
+                              Icons.home,
+                              color: Colors.yellow,
+                              
+                            ),
+                            title: "My leave balance",
+                            count: dashboardCard!.myleavebalance.toString()),
+                        DashboardCard(
+                          containerColor: Colors.greenAccent,
+                            icon:const Icon(
+                              Icons.timeline,
+                              color: Colors.red,
+                            ),
+                            title: "My missing checkout",
+                            count:
+                                dashboardCard!.mymissingcheckoutcount.toString()),
+                                    DashboardCard(
+                                      containerColor: Colors.red,
+                                        icon:const Icon(
+                                          Icons.contact_phone,
+                                          color: Colors.yellow,
+                                        ),
+                                        title: "My ghost count",
+                                        count: dashboardCard!.myghostcount.toString()),
+                                    DashboardCard(
+                                        icon:const Icon(
+                                          Icons.mail,
+                                          color: Colors.red,
+                                        ),
+                                        title: "My no daily updates",
+                                        count: dashboardCard!.mynodailyUpdates.toString()),
+                                      
+                                     DashboardCard(
+                                         icon:const Icon(
+                                           Icons.notifications,
+                                           color: Colors.yellow,
+                                         ),
+                                         title: "My not acknowledge",
+                                         count: dashboardCard!.mynotacknowledged.toString()),
+                                  ],
+                                ),
                 ],
-              ),
+                  ),
             ),
     );
   }

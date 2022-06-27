@@ -4,9 +4,11 @@ class DashboardCard extends StatelessWidget {
   final Icon icon;
   final String title;
   final String count;
+  final Color? containerColor;
   const DashboardCard({
     Key? key,
     required this.icon,
+    this.containerColor,
     required this.title,
     required this.count,
   }) : super(key: key);
@@ -20,7 +22,8 @@ class DashboardCard extends StatelessWidget {
         width: size.width * 0.4,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: Colors.blue, borderRadius: BorderRadius.circular(15)),
+            color: containerColor != null ? containerColor:Colors.blue,
+             borderRadius: BorderRadius.circular(15)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

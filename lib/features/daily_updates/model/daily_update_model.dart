@@ -5,7 +5,7 @@ class DailyUpdateModel {
   int? userId;
   String? title;
   String? description;
-  String? projectId;
+int? projectId;
   String? acknowledgedAt;
   DailyUpdateModel({
     this.id,
@@ -21,7 +21,7 @@ class DailyUpdateModel {
     userId= json['user_id'];
     title=json['title'];
     projectId= json['project_id'];
-    description=json['description_id'];
+    description=json['description'];
     acknowledgedAt=json['acknowledge_at'];
   }
 

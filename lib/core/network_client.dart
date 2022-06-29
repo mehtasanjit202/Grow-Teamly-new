@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'package:profileapp/constants/api_endpoint.dart';
 import 'package:profileapp/core/header.dart';
@@ -6,14 +8,15 @@ class NetworkClient {
   //to centeralize get request
   Future<http.Response?> getRequest(
       {String baseUrl = ApiEndpoints.baseUrl, required String path}) async {
-    http.Response? Response;
+    http.Response? response;
     try {
-      Response =
+      response =
           await http.get(Uri.parse(baseUrl + path), headers: getHeader());
     } catch (e) {
       print(e.toString());
     }
-    return Response;
+    log(response != null ? response.statusCode.toString(): "response is null");
+    return response;
   }
 
   //to centeralize post request
@@ -27,6 +30,8 @@ class NetworkClient {
     } catch (e) {
       print(e.toString());
     }
+        log(response != null ? response.statusCode.toString(): "response is null");
+
     return response;
   }
 }

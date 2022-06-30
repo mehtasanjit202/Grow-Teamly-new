@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:profileapp/features/daily_updates/model/daily_update_model.dart';
 import 'package:profileapp/features/daily_updates/services/daily_update_services.dart';
@@ -11,7 +13,7 @@ class DailyUpdateView extends StatefulWidget {
 
 class _DailyUpdateViewState extends State<DailyUpdateView> {
   List<DailyUpdateModel> dailyUpdates = [];
-  bool _isLoading =true;
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -21,16 +23,22 @@ class _DailyUpdateViewState extends State<DailyUpdateView> {
   fetchDailyUpdates() async {
     DailyUpdateServices dailyUpdate = DailyUpdateServices();
     dailyUpdates = await dailyUpdate.fetchDailyUpdates();
-    _isLoading =false;
-    if(mounted)
-    setState(() {
-      
-    });
+    _isLoading = false;
+    if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed:() {
+        
+      },
+      child: const Icon(Icons.add),
+      ),
+        
+      
+      
+      
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
@@ -39,17 +47,41 @@ class _DailyUpdateViewState extends State<DailyUpdateView> {
         ),
         centerTitle: true,
       ),
-      body: _isLoading ? const CircularProgressIndicator() : ListView.separated(
-        separatorBuilder: (BuildContext context, index) =>const Divider(),
-        itemCount: dailyUpdates.length,
-        itemBuilder: (BuildContext context, int index){
-return ListTile(
-  title: Text(dailyUpdates[index].title ?? ""),
-  subtitle:   Text(dailyUpdates[index].description ?? ""),
-  
-);
-        },
-      ),
+      
+      body: _isLoading
+          ? const CircularProgressIndicator()
+          : ListView.separated(
+              separatorBuilder: (BuildContext context, index) =>
+                  const Divider(),
+              itemCount: dailyUpdates.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text(dailyUpdates[index].title ?? ""),
+                  subtitle: Text(dailyUpdates[index].description ?? ""),
+                  trailing: dailyUpdates[index].acknowledgedAt ==null ? 
+                   Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          log(" Edit Tapped");
+                        },
+                        child:const Icon(Icons.edit)),
+                        const SizedBox(width: 20,),
+                      InkWell(
+                      onTap: () {
+                       log("Delete Tapped");
+                      },
+                          child:const Icon(
+                        Icons.delete,
+                      ))
+                    ],
+                  )
+                  : const SizedBox(),
+                  
+                );
+              },
+            ),
     );
   }
 }

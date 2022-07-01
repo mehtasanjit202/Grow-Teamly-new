@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:profileapp/app/routes.dart';
 import 'package:profileapp/features/daily_updates/model/daily_update_model.dart';
 import 'package:profileapp/features/daily_updates/services/daily_update_services.dart';
 
@@ -30,15 +31,12 @@ class _DailyUpdateViewState extends State<DailyUpdateView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed:() {
-        
-      },
-      child: const Icon(Icons.add),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.addDialyUpdateRoute);
+        },
+        child: const Icon(Icons.add),
       ),
-        
-      
-      
-      
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
@@ -47,7 +45,6 @@ class _DailyUpdateViewState extends State<DailyUpdateView> {
         ),
         centerTitle: true,
       ),
-      
       body: _isLoading
           ? const CircularProgressIndicator()
           : ListView.separated(
@@ -58,27 +55,28 @@ class _DailyUpdateViewState extends State<DailyUpdateView> {
                 return ListTile(
                   title: Text(dailyUpdates[index].title ?? ""),
                   subtitle: Text(dailyUpdates[index].description ?? ""),
-                  trailing: dailyUpdates[index].acknowledgedAt ==null ? 
-                   Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          log(" Edit Tapped");
-                        },
-                        child:const Icon(Icons.edit)),
-                        const SizedBox(width: 20,),
-                      InkWell(
-                      onTap: () {
-                       log("Delete Tapped");
-                      },
-                          child:const Icon(
-                        Icons.delete,
-                      ))
-                    ],
-                  )
-                  : const SizedBox(),
-                  
+                  trailing: dailyUpdates[index].acknowledgedAt == null
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  log(" Edit Tapped");
+                                },
+                                child: const Icon(Icons.edit)),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  log("Delete Tapped");
+                                },
+                                child: const Icon(
+                                  Icons.delete,
+                                ))
+                          ],
+                        )
+                      : const SizedBox(),
                 );
               },
             ),

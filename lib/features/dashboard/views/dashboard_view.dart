@@ -33,7 +33,7 @@ class _DashboardViewState extends State<DashboardView> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title:const Text(
+        title: const Text(
           "Dashboardview",
           style: TextStyle(fontSize: 20, color: Colors.red),
         ),
@@ -41,70 +41,74 @@ class _DashboardViewState extends State<DashboardView> {
         centerTitle: true,
       ),
       body: _isloading
-          ?const Center(
+          ? const Center(
               child: CircularProgressIndicator(
                 color: Colors.redAccent,
               ),
             )
-          : Center(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                 const SizedBox(
-                    height: 10,
-                  ),
-                  Wrap(
-                    spacing: 40,
-                    runSpacing: 10,
-                
-                      // mainAxisAlignment: MainAxisAlignment.center,
+          : dashboardCard == null
+              ? const Center(
+                  child: Text("Something went wrong"),
+                )
+              : Center(
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Wrap(
+                        spacing: 40,
+                        runSpacing: 10,
 
-                      children: [
-                        DashboardCard(
-                            icon:const Icon(
-                              Icons.home,
-                              color: Colors.yellow,
-                              
-                            ),
-                            title: "My leave balance",
-                            count: dashboardCard!.myleavebalance.toString()),
-                        DashboardCard(
-                          containerColor: Colors.greenAccent,
-                            icon:const Icon(
-                              Icons.timeline,
-                              color: Colors.red,
-                            ),
-                            title: "My missing checkout",
-                            count:
-                                dashboardCard!.mymissingcheckoutcount.toString()),
-                                    DashboardCard(
-                                      containerColor: Colors.red,
-                                        icon:const Icon(
-                                          Icons.contact_phone,
-                                          color: Colors.yellow,
-                                        ),
-                                        title: "My ghost count",
-                                        count: dashboardCard!.myghostcount.toString()),
-                                    DashboardCard(
-                                        icon:const Icon(
-                                          Icons.mail,
-                                          color: Colors.red,
-                                        ),
-                                        title: "My no daily updates",
-                                        count: dashboardCard!.mynodailyUpdates.toString()),
-                                      
-                                     DashboardCard(
-                                         icon:const Icon(
-                                           Icons.notifications,
-                                           color: Colors.yellow,
-                                         ),
-                                         title: "My not acknowledge",
-                                         count: dashboardCard!.mynotacknowledged.toString()),
-                                  ],
-                                ),
-                ],
+                        // mainAxisAlignment: MainAxisAlignment.center,
+
+                        children: [
+                          DashboardCard(
+                              icon: const Icon(
+                                Icons.home,
+                                color: Colors.yellow,
+                              ),
+                              title: "My leave balance",
+                              count: dashboardCard!.myleavebalance.toString()),
+                          DashboardCard(
+                              containerColor: Colors.greenAccent,
+                              icon: const Icon(
+                                Icons.timeline,
+                                color: Colors.red,
+                              ),
+                              title: "My missing checkout",
+                              count: dashboardCard!.mymissingcheckoutcount
+                                  .toString()),
+                          DashboardCard(
+                              containerColor: Colors.red,
+                              icon: const Icon(
+                                Icons.contact_phone,
+                                color: Colors.yellow,
+                              ),
+                              title: "My ghost count",
+                              count: dashboardCard!.myghostcount.toString()),
+                          DashboardCard(
+                              icon: const Icon(
+                                Icons.mail,
+                                color: Colors.red,
+                              ),
+                              title: "My no daily updates",
+                              count:
+                                  dashboardCard!.mynodailyUpdates.toString()),
+                          DashboardCard(
+                              icon: const Icon(
+                                Icons.notifications,
+                                color: Colors.yellow,
+                              ),
+                              title: "My not acknowledge",
+                              count:
+                                  dashboardCard!.mynotacknowledged.toString()),
+                        ],
+                      ),
+                    ],
                   ),
-            ),
+                ),
     );
   }
 }

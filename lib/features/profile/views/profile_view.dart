@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:profileapp/app/routes.dart';
 import 'package:profileapp/features/profile/model/dummy_page_model.dart';
 import 'package:profileapp/features/profile/model/profile_model.dart';
 import 'package:profileapp/features/profile/servies/profile_services.dart';
 import 'package:profileapp/helpers/confirmatiom_dialog.dart';
+import 'package:profileapp/helpers/snacks.dart';
 import 'package:profileapp/image-constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,7 +49,8 @@ class _ProfileViewState extends State<ProfileView> {
                 final bool isConfirmed = await getConfirmationDialog(context);
                 if (isConfirmed) {
                   locator.get<SharedPreferences>().clear();
-                  Navigator.pushNamedAndRemoveUntil(context, AppRoutes.loginRoute, (route) => false);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, AppRoutes.loginRoute, (route) => false);
                   // Navigator.pushAndRemoveUntil(
                   //     context,
                   //     MaterialPageRoute(
@@ -133,9 +136,23 @@ class _ProfileViewState extends State<ProfileView> {
                     height: 10,
                   ),
                   Text("Supervisor: ${_profileModel?.supervisorName}"),
-                  ElevatedButton(onPressed: (){
-                    Navigator.pushNamed(context, AppRoutes.dummyRoute,arguments: DummyPageModel(name: "Hello", address: "Kathamandu", age: 20) );
-                  }, child: Text("Navigate"))
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.dummyRoute,
+                            arguments: DummyPageModel(
+                                name: "Hello", address: "Kathamandu", age: 20));
+                      },
+                      child: Text("Navigate")),
+                  ElevatedButton(
+                      onPressed: () {
+                       // AppSnacks.showErrorToast("Error" );
+                        AppSnacks.showSuccessToast("wrong code");
+                      },
+                       
+                      child: const Text(
+                        "Press",
+                      ),
+                      )
                 ],
               ),
             ),

@@ -32,7 +32,7 @@ class _ProfileViewState extends State<ProfileView> {
     _profileModel = await ProfileServices().fetchProile();
 
     _isloading = false;
-    setState(() {});
+    if (mounted)setState(() {});
   }
 
   @override
@@ -115,6 +115,11 @@ class _ProfileViewState extends State<ProfileView> {
                       borderRadius: BorderRadius.circular(200),
                     ),
                   ),
+                  IconButton(onPressed: (){ 
+                    showModalBottomSheet(context: context, builder: (context){
+                      return Text("skm");
+                    });
+                  }, icon: const Icon(Icons.edit,),),
                   SizedBox(
                     height: 10,
                   ),

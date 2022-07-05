@@ -19,6 +19,8 @@ class NetworkClient {
           await http.get(Uri.parse(baseUrl + path), headers: getHeader());
           if(response.statusCode == 200){
             locator.get<SharedPreferences>().setString( path, response.body);
+          } else if (response.statusCode == 500){
+            AppSnacks.showErrorToast(("internal server error."));
           }
     } catch (e) {
       final _cachevalue =locator<SharedPreferences>().getString(path);

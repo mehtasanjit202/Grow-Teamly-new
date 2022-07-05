@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:profileapp/app/routes.dart';
 import 'package:profileapp/features/daily_updates/model/daily_update_model.dart';
 import 'package:profileapp/features/daily_updates/services/daily_update_services.dart';
+import 'package:profileapp/features/daily_updates/widgets/list_shimmer.dart';
 
 class DailyUpdateView extends StatefulWidget {
   const DailyUpdateView({Key? key}) : super(key: key);
@@ -46,7 +47,7 @@ class _DailyUpdateViewState extends State<DailyUpdateView> {
         centerTitle: true,
       ),
       body: _isLoading
-          ? const CircularProgressIndicator()
+          ? ListShimmer()
           : ListView.separated(
               separatorBuilder: (BuildContext context, index) =>
                   const Divider(),

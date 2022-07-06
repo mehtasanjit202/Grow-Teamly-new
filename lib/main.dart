@@ -18,12 +18,12 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: ((context) => CounterProvider())),
     ChangeNotifierProvider(create: ((context) => AuthProvider())),
-  ], child: TestApp( token:token,)));
+  ], child: MyApp( token:token,)));
 }
 
-class TestApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   final String? token;
-   TestApp({Key? key, this.token}) : super(key: key);
+   MyApp({Key? key, this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

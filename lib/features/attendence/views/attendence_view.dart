@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +13,7 @@ class AttendanceView extends StatefulWidget {
 }
 
 class _AttendanceViewState extends State<AttendanceView> {
+  XFile? _pickimage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,48 +23,76 @@ class _AttendanceViewState extends State<AttendanceView> {
       ),
       body: Column(children: [
         ElevatedButton(
-            onPressed: () {
-              showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  )),
-                  context: context,
-                  builder: (context) {
-                    return SizedBox(
-                     // height: 220,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                           ListTile(
-                            onTap: () async{
-                               ImagePickerHelper().pickImage(ImageSource.camera);
-                             
-                              // if (kDebugMode)
-                              // print("Camera tap");
-                            },
-                            
-                            leading:const Icon(Icons.camera_alt),
+          onPressed: () {
+            showModalBottomSheet(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                )),
+                context: context,
+                builder: (context) {
+                  return SizedBox(
+                    // height: 220,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          onTap: () async {
+                            Navigator.pop(context);
 
-                            title:const  Text("camera"),
-                          ),
-                           ListTile(
-                            onTap: ()async {
-                              ImagePickerHelper().pickImage(ImageSource.gallery);
-                            
-                            },
-                            leading:const Icon(Icons.photo_sharp),
-                            title:const Text("Gallery"),
-                          ),
-                        ],
-                      ),
-                    );
-                  });
-            },
-            child: const Text(
-              "pick an image",
-            )),
+                            _pickimage = await ImagePickerHelper()
+                                .pickImage(ImageSource.camera);
+                            print(_pickimage?.path);
+                            setState(() {});
+
+                            // if (kDebugMode)
+                            // print("Camera tap");
+                          },
+                          leading: const Icon(Icons.camera_alt),
+                          title: const Text("camera"),
+                        ),
+                        ListTile(
+                          onTap: () async {
+                            Navigator.pop(context);
+
+                           _pickimage= await ImagePickerHelper().pickImage(ImageSource.gallery);
+                            setState(() {
+                              
+                            });
+                          },
+                          leading: const Icon(Icons.photo_sharp),
+                          title: const Text("Gallery"),
+                        ),
+                      ],
+                    ),
+                  );
+                });
+          },
+          child: const Text(
+            "pick an image",
+          ),
+        ),
+        if (_pickimage != null) ...{
+          Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Image.file(
+                File(_pickimage!.path),
+                height: 200,
+                width: 250,
+                fit: BoxFit.cover,
+              ),
+              IconButton(onPressed: () {
+                _pickimage = null;
+                setState(() {
+                  
+                });
+
+              }, icon: Icon(Icons.cancel,size: 40,))
+            ],
+          )
+        }
       ]),
     );
   }
